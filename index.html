@@ -1,0 +1,2036 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr Rearm - Shake Your Mind! | Future Tech Solutions</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-cyan: #00ffff;
+            --secondary-cyan: #00cccc;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --grid-color: #003366;
+            --text-light: #e0e0e0;
+            --text-dark: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--primary-cyan);
+            z-index: 1000;
+            padding: 0 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary-cyan);
+            text-shadow: 0 0 10px var(--primary-cyan);
+            position: relative;
+            text-decoration: none;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-cyan), var(--secondary-cyan));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover::after {
+            transform: scaleX(1);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-item a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            white-space: nowrap;
+        }
+
+        .nav-item a:hover,
+        .nav-item a.active {
+            color: var(--primary-cyan);
+            border: 1px solid var(--primary-cyan);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-cyan);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            color: var(--primary-cyan);
+            text-shadow: 0 0 30px var(--primary-cyan);
+            margin-bottom: 1rem;
+            animation: glitch 2s infinite;
+            line-height: 1.1;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            10% { transform: translate(-2px, 2px); }
+            20% { transform: translate(2px, -2px); }
+            30% { transform: translate(-2px, -2px); }
+            40% { transform: translate(2px, 2px); }
+            50% { transform: translate(-2px, 2px); }
+            60% { transform: translate(2px, -2px); }
+            70% { transform: translate(-2px, -2px); }
+            80% { transform: translate(2px, 2px); }
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: var(--primary-cyan);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        .hero .description {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--primary-cyan);
+            color: var(--dark-bg);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-radius: 0;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.5s forwards;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--primary-cyan);
+            box-shadow: 0 0 6px var(--primary-cyan);
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .section {
+            padding: 6rem 1rem;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: var(--primary-cyan);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-cyan), var(--secondary-cyan));
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .service-card {
+            background: rgba(0, 255, 255, 0.05);
+            border: 2px solid var(--primary-cyan);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.8s;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2);
+        }
+
+        .service-icon, .card-icon {
+            font-size: clamp(2.5rem, 5vw, 3rem);
+            color: var(--primary-cyan);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--primary-cyan);
+            display: block;
+            text-align: center;
+        }
+        
+        .service-card h3, .project-card h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            font-weight: 700;
+            color: var(--primary-cyan);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .service-card p, .project-card p {
+            line-height: 1.6;
+            color: var(--text-light);
+            text-align: center;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .project-card {
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid var(--primary-cyan);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 250px;
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 100%;
+            background: var(--primary-cyan);
+            transition: width 0.4s ease;
+        }
+
+        .project-card:hover::after {
+            width: 4px;
+        }
+
+        .project-card:hover {
+            transform: translateX(10px);
+            border-color: var(--primary-cyan);
+            box-shadow: -10px 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .contact-form {
+            max-width: 700px;
+            margin: 4rem auto 0;
+            background: rgba(0, 255, 255, 0.05);
+            border: 2px solid var(--primary-cyan);
+            padding: 2rem;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .contact-form label {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-cyan);
+            font-weight: 600;
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            background: var(--darker-bg);
+            border: 1px solid var(--primary-cyan);
+            color: var(--text-light);
+            font-size: 1rem;
+            font-family: 'Rajdhani', sans-serif;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-form input[type="text"]:focus,
+        .contact-form input[type="email"]:focus,
+        .contact-form textarea:focus {
+            border-color: var(--primary-cyan);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            outline: none;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .contact-form button {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--primary-cyan);
+            color: var(--dark-bg);
+            border: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .contact-form button:hover::before {
+            left: 100%;
+        }
+
+        .contact-form button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
+        }
+
+        .footer {
+            background: var(--darker-bg);
+            border-top: 2px solid var(--primary-cyan);
+            padding: 3rem 1rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-light);
+            text-decoration: none;
+            line-height: 1.6;
+            transition: color 0.3s ease;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-cyan);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--primary-cyan);
+            transition: all 0.3s ease;
+            color: var(--primary-cyan);
+            border-radius: 50%;
+            font-weight: bold;
+            text-shadow: 0 0 10px var(--primary-cyan);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            background: rgba(0, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent,
+                transparent,
+                transparent,
+                var(--primary-cyan)
+            );
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+            top: 100%;
+        }
+
+        .social-link:hover {
+            background: var(--primary-cyan);
+            color: var(--dark-bg);
+            box-shadow: 0 0 25px var(--primary-cyan);
+            text-shadow: none;
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        .social-link i {
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--primary-cyan);
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 992px) {
+            .services-grid,
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            .nav-menu {
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: rgba(5, 5, 5, 0.98);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 255, 255, 0.2);
+                backdrop-filter: blur(20px);
+                padding: 2rem 0;
+                gap: 1.5rem;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .mobile-menu.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .mobile-menu.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .mobile-menu.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .section {
+                padding: 4rem 1rem;
+            }
+            
+            .contact-form {
+                padding: 1.5rem;
+            }
+            
+            .social-link {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .social-link i {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content {
+                padding: 0 1rem;
+            }
+            
+            .cta-button {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-section {
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        .animate-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .animate-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 3px solid var(--grid-color);
+            border-top: 3px solid var(--primary-cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-content {
+            background-color: var(--dark-bg);
+            margin: 5% auto;
+            padding: 2rem;
+            border: 2px solid var(--primary-cyan);
+            width: 90%;
+            max-width: 900px;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            animation: fadeInScale 0.3s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .lightbox-close {
+            color: var(--primary-cyan);
+            font-size: 2.5rem;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            transition: color 0.3s ease;
+        }
+
+        .lightbox-close:hover,
+        .lightbox-close:focus {
+            color: white;
+            text-shadow: 0 0 15px var(--primary-cyan);
+        }
+
+        .lightbox-body {
+            padding-top: 2rem;
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .lightbox-body .card-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-cyan);
+            text-shadow: 0 0 20px var(--primary-cyan);
+        }
+        
+        .lightbox-body h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: var(--primary-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .lightbox-body p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        
+        .lightbox-body ul, 
+        .lightbox-body ol {
+            text-align: left;
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .lightbox-body li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .lightbox-body h4 {
+            font-family: 'Orbitron', monospace;
+            color: var(--primary-cyan);
+            margin: 1.5rem 0 1rem;
+            text-align: left;
+        }
+        
+        .lightbox-body h5 {
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--primary-cyan);
+            margin: 1rem 0;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        #scrollToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            line-height: 44px;
+            border: 2px solid var(--primary-cyan);
+            outline: none;
+            background-color: var(--darker-bg);
+            color: var(--primary-cyan);
+            cursor: pointer;
+            padding: 0;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: var(--primary-cyan);
+            color: var(--dark-bg);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.7);
+        }
+
+        #scrollToTopBtn:active {
+            background-color: var(--secondary-cyan);
+            color: var(--dark-bg);
+            transform: translateY(0px);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.9);
+        }
+
+        .lightbox-back-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 2rem;
+            background: var(--primary-cyan);
+            color: var(--dark-bg);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .lightbox-back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .lightbox-back-btn:hover::before {
+            left: 100%;
+        }
+
+        .lightbox-back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">MR REARM</a>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
+                <li class="nav-item"><a href="#servizi" class="nav-link">Servizi</a></li>
+                <li class="nav-item"><a href="#progetti" class="nav-link">Progetti</a></li>
+                <li class="nav-item"><a href="#contatti" class="nav-link">Contatti</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="particles" id="particles"></div>
+        <div class="hero-content">
+            <h1>SHAKE YOUR MIND</h1>
+            <p class="subtitle">Future Tech Solutions</p>
+            <p class="description">
+                Realizziamo il tuo stile seguendo la tua idea, trasformando i sistemi più complessi 
+                in applicazioni personalizzate e all'avanguardia. Siti web professionali e responsive 
+                che si adattano alle tue esigenze tecnologiche.
+            </p>
+            <a href="#servizi" class="cta-button">ESPLORA I SERVIZI</a>
+        </div>
+    </section>
+
+    <section id="servizi" class="section">
+        <div class="container">
+            <h2 class="section-title animate-in">SERVIZI TECNOLOGICI</h2>
+            <div class="services-grid">
+                <div class="service-card animate-in">
+                    <div class="service-icon">🌐</div>
+                    <h3>Siti Web</h3>
+                    <p>Creazione di siti web professionali e responsive, ottimizzati per SEO e performance. Design moderno e funzionalità avanzate per ogni esigenza.</p>
+                </div>
+                <div class="service-card animate-in">
+                    <div class="service-icon">🎨</div>
+                    <h3>Grafica</h3>
+                    <p>Servizi di grafica creativa: logo design, branding, illustrazioni e materiale promozionale per la tua identità visiva.</p>
+                </div>
+                <div class="service-card animate-in">
+                    <div class="service-icon">📄</div>
+                    <h3>Flyer</h3>
+                    <p>Design e realizzazione di flyer efficaci con messaggi chiari e impatto visivo immediato per le tue campagne promozionali.</p>
+                </div>
+                <div class="service-card animate-in">
+                    <div class="service-icon">💬</div>
+                    <h3>Consulenza</h3>
+                    <p>Offriamo consulenza personalizzata per soluzioni innovative, sviluppo web e trasformazione digitale.</p>
+                </div>
+                <div class="service-card animate-in">
+                    <div class="service-icon">🤝</div>
+                    <h3>Partnership</h3>
+                    <p>Collaboriamo con aziende e professionisti per creare sinergie tecnologiche e progetti all'avanguardia.</p>
+                </div>
+                <div class="service-card animate-in">
+                    <div class="service-icon">🪄</div>
+                    <h3>Progetti Custom</h3>
+                    <p>Sviluppiamo soluzioni su misura seguendo il tuo stile e trasformando sistemi complessi in app innovative.</p>
+                </div>
+                <div class="service-card animate-in">
+                    <div class="service-icon">✨</div>
+                    <h3>E tanto altro!</h3>
+                    <p>Ampia gamma di soluzioni digitali personalizzate: app mobile, e-commerce, sistemi gestionali e molto altro.</p>
+                </div>
+                <div class="service-card animate-in">
+                    <div class="service-icon">📺</div>
+<h3>Video Presentazione</h3>
+<div class="video-container">
+<iframe width="100%" height="100%" src="https://www.youtube.com/embed/OhyAVD5pr0Q" title="Mr Rearm - Video Presentazione" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="progetti" class="section">
+        <div class="container">
+            <h2 class="section-title animate-in">PROGETTI INNOVATIVI</h2>
+            <div class="projects-grid">
+                <div class="project-card animate-in">
+                    <div class="card-icon">🔘</div> 
+                    <h3>INode</h3>
+                    <p>Rete mesh avanzata basata su nodi radio per comunicazione ovunque.</p>
+                    <div class="lightbox-full-content" style="display: none;">
+                        <p>INode è un progetto tratto dalla spontanea evoluzione della rete mesh che abbiamo visto evolversi nel tempo dalla fonera fino alla più innovativa tecnologia satellitare di Elon Musk denominata "Star Link".</p>
+                        
+                        <h4>Concetto Base</h4>
+                        <p>INode s'interpone nel mezzo sfruttando una tecnologia già esistente ma spesso sottovalutata, ovvero le onde radio, la frequenza che viaggia in vari nodi, consentendo appunto la comunicazione tra tante persone in qualsiasi luogo.</p>
+                        
+                        <p>In qualsiasi luogo, esattamente così, creando un nodo con un kit particolare, e creando determinati nodi in un luogo sprovvisto di tecnologia, come ad esempio nel bel mezzo del deserto, le persone tramite un'app e/o una mini radio (in modo d'abbinare il nuovo al vecchio e viceversa) possono trasmettere sia messaggi testuali sia messaggi vocali.</p>
+                        
+                        <h4>Innovazione</h4>
+                        <p>Tante volte si è parlato di walkie talkie, di app che si collegavano tramite Bluetooth, ma questa tecnologia non è mai stata sfruttata pienamente, venendo per anni accantonata. E se si rendesse tutto più smart? Dove ogni persona, con dovuti consensi può creare un nodo permanente o temporaneo, immaginiamo quante zone, quante persone riuscirebbero ad essere coperte da una tecnologia semplice che consente di mettere in comunicazione chiunque in qualsiasi posto.</p>
+                        
+                        <h4>Funzionalità Principali</h4>
+                        <ul>
+                            <li>Creazione di nodi permanenti o temporanei</li>
+                            <li>Comunicazione testuale e vocale</li>
+                            <li>Integrazione con dispositivi tradizionali</li>
+                            <li>Gestione intelligente delle frequenze</li>
+                            <li>Topologia nodale adattiva</li>
+                        </ul>
+                        
+                        <h4>Governance del Sistema</h4>
+                        <p>INode vuole consentire proprio questo, sfruttare anche quei segnali a bassa frequenza, spesso ignorati, per creare un sistema senza ridondanze, e soprattutto basato sul buon senso, dallo studio del luogo, se ha tanti nodi o meno, se la creazione di nodi può comprometterne altri e viceversa.</p>
+                        
+                        <p>Il consenso viene fornito da un funzionario (Noderator) che controlla il tutto, questo può essere:
+                        <ul>
+                            <li>Un funzionario tecnico free agent</li>
+                            <li>Un funzionario aziendale</li>
+                            <li>Un funzionario comunale</li>
+                        </ul>
+                        
+                        <h4>Figure Professionali</h4>
+                        <p>Creando così una doppia figura:</p>
+                        <ol>
+                            <li><strong>Noderator</strong> (nome tratto da moderator di nodi) che controlla e concede il consenso o meno del nodo studiandone anche la topologia (disposizione dei nodi, topologia a stella, ad anello, ad albero)</li>
+                            <li><strong>iNoder</strong> che crea un nodo</li>
+                        </ol>
+                        
+                        <p>Due figure lavorative nuove in un mondo che ne concede sempre meno non può essere che esclusivamente un bene, ponendo la tecnologia in uno stato ecosostenibile, basandosi sul buon senso, sull'ottimizzazione e sull'abbattimento dell'eccesso e del superfluo, generando una tecnologia puramente "armoniosa e armonica".</p>
+                        
+                        <h4>CamperNode</h4>
+                        <p>I nodi possono essere temporanei o fissi, ma perché non mobili? La mobilità consentirebbe di creare una topologia nodale basata sui cambiamenti del territorio, al mutamento dell'ambiente cambia anche l'assetto nodale.</p>
+                        
+                        <p>In questa concezione entrano in campo i camper, camperisti iNoder ufficiali che montano un'antenna sul proprio camper, disponendosi in maniera strategica sul territorio possono formare una determinata topologia nodale (a stella, anulare, ecc.).</p>
+                        
+                        <p>In questo modo, in una zona disastrata da un cataclisma o un evento naturale non previsto, inviando i camper, non ci sarebbero perdite di tempo dovute all'installazione, nel caso in cui le zone sono raggiungibili solo via mare, al posto dei camper degli aliscafi o altri tipi d'imbarcazione veloci per portare il segnale ovunque rapidamente. In questo modo il territorio non riuscirebbe a scappare dalla tecnologia. In questo caso, il noderator costituisce una figura importante che crea una rete intelligente nodale e modulare, che si adatta al territorio con costanza.</p>
+                        
+                        <h4>RadioLina</h4>
+                        <p>RadioLina è stata pensata come un piccolo dispositivo che oltre a ricevere chiamate vocali in stile walkie talkie, predispone anche di un display per ricevere e inviare messaggi di testo, alcuni messaggi sono preimpostati per richiedere aiuto o segnalare qualsiasi tipo di evento.</p>
+                        
+                        <p>Inoltre cosa importante, può emettere dei segnali radio che fungono da richiesta di aiuto, diventando un vero "salvavita", che segnala la propria presenza ad altri dispositivi e nodi.</p>
+                        
+                        <p>Laddove le onde radio non possono arrivare, grazie alla sim integrata con connettività 5G, si può comunicare anche in posti dove ci sono muri o altri elementi che ostacolano la comunicazione.</p>
+                        
+                        <p>Immaginiamo una persona che a seguito di un terremoto si trova sotto le macerie, RadioLina diventa un ottimo salvavita per indicare la propria posizione e magari comunicare anche tramite un allert preimpostato in che condizioni ci si ritrova (esempio: limitata ossigenazione, fratture, immobilitato, mobilatazione limitata, ecc.).</p>
+                        
+                        <p>RadioLina non si sofferma solo a questa applicazione, ma potrebbe essere utilizzata per tanti eventi anche più felici, un concerto o un grosso evento con milioni di persone, dove si può comunicare la posizione ad amici e parenti.</p>
+                        <button class="lightbox-back-btn">Torna ai Progetti</button>
+                    </div>
+                </div>
+                <div class="project-card animate-in">
+                    <div class="card-icon">💡</div> 
+                    <h3>Lavagna Intelligente</h3>
+                    <p>Un sistema educativo avanzato per scuole e enti formativi.</p>
+                    <div class="lightbox-full-content" style="display: none;">
+                        <p>Un unico supporto per assistere i docenti nelle loro lezioni, e gli allievi nell'apprendimento in classe, ma anche a casa.
+<br>
+<br>
+Il progetto della lavagna intelligente consiste nella realizzazione di una lavagna elettronica con supporto touch-screen, che può compiere svariate operazioni, abbracciando le maggiori materie che vengono somministrate nei nostri istituti scolastici.
+<br>
+<br>
+La lavagna riconosce direttamente il testo e i numeri digitati e può compiere operazioni complesse come:
+<br>
+<br>
+-Risolvere equazioni algebriche semplici o complesse;
+<br>
+-Risoluzione dei maggiori teoremi matematici;
+<br>
+-Svolgere ricerche di vario genere grazie all'integrazione dei motori Google Ricerche e Wikipedia;
+<br>
+-Corregere frasi e periodi, nonché fare traduzioni e parafrasi;
+<br>
+-Visionare video, video tutorial, e musei virtuali, in qualità 3D, Full HD e nel nuovo formato 4K;
+<br>
+-Navigare sui siti grazie ad un browser integrato, e tante altre cose.
+<br>
+<br>
+Oltre a ciò, è possibile creare account per docente e per alunni, in modo da registrare tutte le operazioni effettuate.
+I docenti potranno ritrovare le vecchie lezioni e le proprie slide, con pochi semplici gesti della mano.
+Gli allievi a loro volta, potranno rivedere e ripetere/ripassare le lezioni passate.
+<br>
+<br>
+La lavagna è anche in grado di registrare la lezione, e di monitorare la classe, grazie alla telecamera incorporata dotata di giroscopio a comando vocale, e la memoria di svariati terabyte nonché il cloud protetto su server all'avanguardia.
+Ai gesti con la mano, possono alternarsi comandi vocali per richiamare le maggiori funzioni disponibili della lavagna, che riconosce la voce dell'insegnante di turno, dopo averla registrata nella creazione iniziale dell'account.
+A questo magnifico supporto è possibile abbinare dei tablet che si collegano agli account propri e comunicano con la lavagna stessa, previa autorizzazione della docenza.
+<br>
+<br>
+Dunque niente libri, niente quaderni, nessun zaino pesante, ma soprattutto nessuna lezione persa per assenza, in quanto la visione della lezione può essere programmata anche in diretta streaming, per poi essere visionata dal tablet, o dal sito proprietario della scuola, tramite l'inserimento dei dati di accesso del proprio account.
+<br>
+<br>
+Con la lavagna intelligente, la scuola del futuro è vicina!</p>
+                        <button class="lightbox-back-btn">Torna ai Progetti</button>
+                    </div>
+                </div>
+                <div class="project-card animate-in">
+                    <div class="card-icon">🚌</div> 
+                    <h3>SearchBus</h3>
+                    <p>Piattaforma per la ricerca di trasporti pubblici.</p>
+                    <div class="lightbox-full-content" style="display: none;">
+                        <p>SearchBus è stata pensata come un'applicazione innovativa che permette di trovare rapidamente i mezzi di trasporto pubblico disponibili nella tua zona. Con un'interfaccia intuitiva e dati in tempo reale, SearchBus rivoluziona il modo di pianificare gli spostamenti urbani.
+<br>
+<br>
+Quante volte aspettate il vostro bus dei sogni, quello che vi porta a casa per trascorrere una serata romantica con il vostro partner?
+<br>
+<br>
+Ma mentre state pensando alla seratona, i minuti passano e un dubbio amletico vi pervade in maniera serpentina: “aspettare o andare via, ma dov’è il mio amato bus, su quale erto colle giace?”.
+<br>
+<br>
+No problem! Ecco qui subentrare come un eroe mascherato la mia idea “SearchBus”. L’utente sconfortato e desolato del mancato avvistamento del suo beneamato bus, dalla tasca sfoggia il suo cellulare nuovo di zecca (o quasi) e con l’applicazione SearchBus, ricerca il suo amore bussino, inserendo il nome dell’azienda e il numero di linea. Magicamente, l’applicazione si collega al satellite che si collega a sua volta al GPS del dolce bussino. Il software integrato a bordo, comunicherà la propria posizione e il motivo di ritardo: “Evento non previsto, traffico intenso, corsa sospesa, sciopero”.
+<br>
+<br>
+L’utente legge la posizione del bus dei sogni e comprende che tra pochi minuti sopraggiungerà la carrozza che lo porterà nella sua più gradita destinazione. Tutto è bene ciò che finisce bene, ma una raccomandazione è d’obbligo, l’applicazione non segnala se c’è il controllore a bordo, quindi non dimenticate il biglietto, ricordando che a casa vi aspetta il vostro amore tenebroso e una pizza fumante!!!</p>
+                        <h4>Funzionalità:</h4>
+                        <ul>
+                            <li>Ricerca per linea, fermata o destinazione</li>
+                            <li>Tempi di attesa in tempo reale</li>
+                            <li>Mappe interattive delle rotte</li>
+                            <li>Notifiche per ritardi e cambiamenti</li>
+                            <li>Integrazione con sistemi di biglietteria elettronica</li>
+                            <li>Pianificazione percorsi multimodali</li>
+                        </ul>
+                        <h4>Disponibile su:</h4>
+                        <p>iOS, Android e come servizio web responsive.</p>
+                        <button class="lightbox-back-btn">Torna ai Progetti</button>
+                    </div>
+                </div>
+                <div class="project-card animate-in">
+                    <div class="card-icon">♻️</div> 
+                    <h3>Trashware</h3>
+                    <p>Soluzione per il recupero di hardware dismesso.</p>
+                    <div class="lightbox-full-content" style="display: none;">
+                        <p>Definizione di Trashware:
+<br>
+<br>
+Il trashware è il recupero e riutilizzo di vecchi computer, anche assemblando pezzi diversi e installando software libero (es. Linux), per donarli a enti e scuole e ridurre il divario digitale.
+<br>
+<br>
+Definizione di RAEE e normativa smaltimento:
+<br>
+<br>
+I RAEE
+<br>
+<br>
+I RAEE (Rifiuti di Apparecchiature Elettriche ed Elettroniche) sono dispositivi elettrici/elettronici dismessi, spesso inquinanti e non biodegradabili. Vanno trattati in modo corretto e differenziato per recuperare materiali preziosi e proteggere l'ambiente.
+<br>
+<br>
+NORMATIVA
+<br>
+<br>
+La normativa europea e italiana impone ai produttori e distributori obblighi di raccolta, smaltimento e finanziamento del trattamento dei RAEE. Esistono consorzi e sistemi collettivi (es. ReMedia, Ecodom, Ecolamp) che gestiscono il processo.
+<br>
+<br>
+La nostra idea di Trashware, si occuperebbe di:
+<br>
+<br>
+-Recupero immediato: i computer funzionanti vengono rigenerati e rivenduti.
+<br>
+<br>
+-Smaltimento: i dispositivi non funzionanti vengono trattati per ricavare materiali riutilizzabili o ad alto potere calorifico per l'industria, contribuendo a ridurre l'inquinamento.</p>
+                        <button class="lightbox-back-btn">Torna ai Progetti</button>
+                    </div>
+                </div>
+                <div class="project-card animate-in">
+                    <div class="card-icon">🎁</div> 
+                    <h3>E-Gift</h3>
+                    <p>Piattaforma digitale per regali elettronici.</p>
+                    <div class="lightbox-full-content" style="display: none;">
+                        <p>E-Gift (Regalo Elettronico) un nome semplice ed efficace per spiegare in maniera immediata la sua funzione primaria, quella di donare un regalo virtuale a un determinato utente, che poi una volta ricevuto, può ritirarlo realmente nella vita reale.
+<br>
+<br>
+E-Gift è stata pensata come un’app ma anche come un marchio.
+<br>
+<br>
+Un marchio al quale potersi affiliare, per poter vendere i propri prodotti da regalo, presso il meccanismo di quest’app-piattaforma.
+<br>
+<br>
+Ma come funzione E-Gift?
+<br>
+<br>
+I regali possono essere effettuati in 3 modalità diverse:
+<br>
+<br>
+1.Il regalo o una donazione di denaro va inviato direttamente alla persona che utilizza l’app e che possiede un nickname univoco e originale. La persona può recarsi direttamente nel negozio affiliato ad E-Gift per ritirare il regalo, presentando semplicemente il codice ricevuto tramite l’app al momento della ricezione del regalo. Il codice va ad identificare 3 elementi: il donatore, il ricevente, e il regalo. Ad esempio se si tratta di una collana, il ricevente potrà direttamente recarsi nella gioielleria affiliata ad E-Gift (marchio esposto come adesivo sulla vetrina del negozio con tanto di codice QR per scaricare l’app) e ritirare la collana. Con questo meccanismo, i negozi affiliati potranno vendere più facilmente i loro prodotti, e ottenere maggiore visione, in quanto il ricevente, ha la piena facoltà di rendere pubblica l’immagine dell’oggetto ricevuto, e magari tranne vantaggio, per ottenere degli sconti dal negozio affiliato qualora il negozio decidesse di applicare questo vantaggio come premio per la pubblicazione.
+<br>
+<br>
+2.Il regalo o una donazione di denaro va inviato ad un luogo, con delle coordinate precise di longitudine e di latitudine, l’app segnalerà alla persona più vicina il regalo, e questa, avvalendosi del GPS integrato nel cellulare, potrà ottenerlo recandosi direttamente sulla “X” che contraddistingue il luogo preciso. Una volta ottenuto il regalo o la donazione, potrà ritirarlo nel negozio affiliato più vicino se il regalo è in sottoforma di regalo materiale, o riscuoterlo presso banca o accredito su carta prepagata in caso di denaro. Anche in questo caso, il codice indicherà il donatore, il ricevente e la somma di denaro riscuotibile (ciò sta a significare che anche le banche, le postee i vari istituti di credito, potranno affiliarsi al marchio E-Gift e farsi conoscere meglio).
+<br>
+<br>
+3.Il terzo regalo è puramente virtuale, si possono acquistare oggetti dallo store virtuale che vanno ad arricchire l’aspetto o la casa dell’avatar personale dell’utente, quindi si potranno inviare vestiti virtuali, accessori, e oggetti per la casa virtuale, che possiamo mettere in mostra all’interno della nostra show room, che mostrerà per l’appunto, tutti i regali ricevuti, quelli veri e quelli virtuali, così da poter rendere spunto agli altri utenti, quali regali poter effettuare, e perché no, quali poter richiedere nel giorno del proprio compleanno!
+<br>
+<br>
+E-Gift punta ad essere non solo l’app più utilizzata al mondo, ma anche quella più funzionale e redditizia, dove persone dal niente, possono ritrovarsi ad avere un proprio marchio, visibile al fianco e non sotto, del marchio più grande del mondo: “E-Gift”.
+<br>
+<br>
+“I regali sono ricordi preziosi, propaghiamoli in segno della nostra gratitudine verso il prossimo, ma anche verso la nostra essenza, che in fin dei conti può ritenersi anch’essa, un regalo divino!”
+<br>
+<br>
+Come si presenta l’app e cosa permette di fare?
+<br>
+<br>
+Il menù principale, apre fondamentalmente la schermata di accesso ai vari store: Store Virtuale, Store Reale, Donazioni di Denaro, Cerca il regalo più vicino a te, Riciclaggio, Banco dei Pegni, Random Gift.
+<br>
+<br>
+Nello Store Virtuale come accade con lo Store Reale, ci sono tutti gli affiliati, che in questo caso sono le case grafiche che realizzano gli articoli virtuali. Il compenso va interamente a loro, mentre E-Gift guadagnerà direttamente dal contributo di affiliazionepiù i vari sponsor connessi.
+<br>
+<br>
+Ovviamente il contributo di affiliazione è dinamico, cresce con la crescita dell’azienda affiliata con l’incremento della vendita dei prodotti tramite l’app.
+<br>
+<br>
+Oltre alle case grafiche, potranno partecipare anche grafici privati o aspiranti, inviando i propri articoli al gruppo che si occupa della visione e messa in app degli articoli a tema.
+<br>
+<br>
+Stessa cosa avverrà per lo Store Reale, oltre alle aziende affiliate e i loro prodotti, saranno presenti varie liste, la top list delle offerte, la top list degli oggetti più acquistati, e la top list delle persone che hanno ricevuto più regali (ovviamente in questa lista saranno presenti solo gli utenti che hanno dato il consenso di rendere visibile al pubblico gli oggetti\soldi ricevuti in regalo).
+<br>
+<br>
+In Donazioni di Denaro, ci saranno tutti i metodi per inviare denaro e gli istituti di credito, per versare denaro ad altri utenti, che potranno riscuoterli o tramite bonifico bancario, o accreditare la somma direttamente sulle proprie carte di credito.
+<br>
+<br>
+In “Cerca il regalo più vicino a te” grazie al GPS attivo integrato nel cellulare, con un semplice shake del telefono (movimento di mano) sarà possibile visualizzare una mappa che segnalerà 3 X rosse, che corrisponderanno a 3 regali diversi, questi potranno essere di varia natura, denaro, regalo virtuale, o un regalo materialepreso in un negozio affiliato. L’utente può scegliere una sola X, naturalmente la posizione più lontana conterrà il regalo più sostanzioso rispetto alle altre due destinazioni.
+<br>
+<br>
+Seguendo il percorso su Google Maps, si arriverà a destinazione, e pigiando sulla X, si otterrà il regalo pronto da riscuotere.
+<br>
+<br>
+In Riciclaggio ci saranno i regalati doppiricevuti dagli utenti, pronti per essere acquistati o ceduti in forma gratuita, o ancora con la forma del baratto, quindi mercato di scambio per tutti.
+<br>
+<br>
+Altra funzione è quella dei Banco dei Pegni, ci saranno tutti gli affiliati che permettono di impegnare i propri regali, per poterli riscuotere al termine di un periodo stabilito, o cederli in cambio del denaro ricevuto al momento della transazione iniziale. Ovviamente tutti i movimenti saranno monitorati per garantire il rispetto delle norme vigenti in materia.
+<br>
+<br>
+Infine troviamo Random Gift, ovvero inserendo il budget per l’acquisto di un regalo e selezionando i contatti desiderati, l’app controllerà tutti i regali con quel costo dai negozi affiliati, ne sceglierà uno, e lo invierà a un contatto a caso.
+<br>
+<br>
+Se nella selezione dei contatti, indicheremo un solo contatto, il regalo sarà più attinente al ricevente. L’app si baserà principalmente sull’avatar costruito e sugli hobby indicati nel profilo nonché ai regali già ricevuti.
+<br>
+<br>
+L’app non si pone limiti, e con nuove idee, si svilupperà anche un’app sempre più innovativa e funzionale.
+<br>
+<br>
+La prima cosa che regaliamo, sono le nostre idee..</p>
+                        <h4>Caratteristiche uniche:</h4>
+                        <ul>
+                            <li>Creazione di regali digitali interattivi</li>
+                            <li>Personalizzazione con video, foto e messaggi</li>
+                            <li>Integrazione con e-commerce per regali fisici</li>
+                            <li>Opzioni di consegna programmata</li>
+                            <li>Realtà aumentata per "scartare" i regali virtuali</li>
+                            <li>Archivio digitale dei regali ricevuti</li>
+                        </ul>
+                        <h4>Vantaggi:</h4>
+                        <ul>
+                            <li>Regali sempre puntuali</li>
+                            <li>Possibilità di regalare esperienze</li>
+                            <li>Memoria permanente dei momenti speciali</li>
+                        </ul>
+                        <p>E-Gift è perfetto per chi ama sorprendere gli affetti più cari con regali speciali.</p>
+                        <button class="lightbox-back-btn">Torna ai Progetti</button>
+                    </div>
+                </div>
+                <div class="project-card animate-in">
+                    <div class="card-icon">🎨</div> 
+                    <h3>Mondo Design</h3>
+                    <p>Studio creativo per design digitale.</p>
+                    <div class="lightbox-full-content" style="display: none;">
+                        <p>Per ogni persona esistono più di 1000 scarpe da provare e da indossare.
+<br>
+<br>
+E se fosse invece la persona ad applicare 1000 dei suoi stili su una sola scarpa?
+<br>
+<br>
+Mondo Design nasce da questa ideologia, la persona che “personalizza” a proprio piacimento i suoi abiti, la sua vita, lanciando un look altamente differente e unico, proiettando la sua stessa immagine in una moda che non conosce limiti, firme né standard con i soliti abbinamenti di colori e capi.
+<br>
+<br>
+Il progetto si sviluppa principalmente sulle scarpe ma può trovare applicazione anche su tutto il resto del vestiario.
+<br>
+<br>
+Grazie a delle strisce di plastica o di gomma dura con una speciale dentatura, sarà possibile inserire schede di vario materiale con il proprio design elaborato al computer, coprendo la scarpa totalmente, sia nei lati, sia sulla parte anteriore e posteriore.
+<br>
+<br>
+Le grafiche potranno essere condivise direttamente online e perché no? Anche per strada, creando uno stile underground, suburbano, dal fascino metropolitano.
+<br>
+<br>
+Ma attenzione!!!! Con le “Coverine” spingiamo l’utenza a creare anche un design sobrio, equilibrato, che tiene conto di una eleganza sconosciuta, ma che proprio per questo motivo stupirà tutti in maniera unica!
+<br>
+<br>
+Oltre ai vari modelli di scarpe e alle grafiche, sullo store, per i più appassionati sarà possibile acquistare anche una piccola stampante 3D per la creazione delle grafiche su vari supporti, e queste potranno essere condivise o vendute nel caso l’utente decide di monetizzare.
+<br>
+<br>
+Si potrà acquistare sia solo la grafica sia la cover stampata.
+<br>
+<br>
+E come vi ho detto all’inizio, la striscia dentata potrà essere acquistata e utilizzata per altre applicazioni, tasche personalizzate sui jeans, taschini su giacche e molto altro.
+<br>
+<br>
+Possediamo uno stile tutto nostro, perché non mostrarlo al mondo intero?
+<br>
+<br>
+La fantasia non conosce limiti, siate liberi di utilizzarla a 360°.</p>
+                        <button class="lightbox-back-btn">Torna ai Progetti</button>
+                    </div>
+                </div>
+                <div class="project-card animate-in">
+                    <div class="card-icon">🛒</div> 
+                    <h3>U-Commerce</h3>
+                    <p>U-Commerce – You Commerce ma anche Universal Commerce.</p>
+                    <div class="lightbox-full-content" style="display: none;">
+                        <p>U-Commerce – Cosa indica?
+<br>
+<br>
+Dopo l’ingresso di una nuova valuta elettronica denominata Bitcoin, ho pensato che a una moneta con un tasso d’interesse dinamico, potesse essere abbinata un equivalente prodotto o servizio con uno sconto altrettanto dinamico.
+<br>
+<br>
+Ogni prodotto, durante l’anno viene sottoposto ad uno sconto.
+<br>
+<br>
+Nel periodo dei saldi e/o nella scadenza del prodotto, viene scontato per essere venduto con maggiore facilità.
+<br>
+<br>
+Dunque, perché non dilazionare lo sconto giorno per giorno?
+<br>
+<br>
+Ogni prodotto avrebbe così la sua percentuale di sconto, proporzionata dal tempo in cui il prodotto è sul mercato, dalle interazioni giornaliere di vendita, e magari dalle rimanenze di magazzino delle aziende affiliate.
+<br>
+<br>
+In parole povere, l’utente si collega alla “Blockchain” delle aziende affiliate alla U-Commerce e monitorizza il tasso di sconto sul prodotto che intende acquistare, e decide il momento adatto per ricevere un maggiore sconto.
+<br>
+<br>
+Se il prodotto è lontano dal suo primo lancio sul mercato, verrà scontato, calcolando una media sui giorni trascorsi.
+<br>
+<br>
+Se il prodotto è stato venduto molte volte e le scorte in magazzino stanno diminuendo, un altro sconto verrà calcolato in base alla quantità venduta.
+<br>
+<br>
+Ma non finisce qui!!!
+Altri sconti potrebbero essere applicati in caso di eventi particolari.
+<br>
+<br>
+Mettiamo il caso, che un’azienda che vende biciclette, sfrutta il giorno “No smog” per vendere le bici a coloro che non la possiedono ancora, lo sconto, invoglierebbe le persone a comprarle in quel preciso momento.
+<br>
+<br>
+Eventi come questi, potrebbero essere organizzati dalle aziende stesse e trarre beneficio alla pari dell’utenza, grazie a dei piccoli sconti, e un conseguenziale maggior guadagno basato sulla quantità venduta.
+<br>
+<br>
+E la nuova moneta? In che modo può essere connessa all’U-Commerce?
+<br>
+<br>
+Visto che il tasso delle criptovalute è dinamico, un modo per ricevere un’altra percentuale di sconto, sarebbe quella di acquistare il prodotto nel momento in cui, una determinata moneta ha un tasso di valore elevato.
+<br>
+<br>
+La Blockchain? In che modo verrebbe realizzata?
+<br>
+<br>
+Uguale a quella originale. Un sito protetto da un database distribuito in tutto il mondo, dove vengono elaborate e pubblicate tutte le transazioni di acquisto da parte degli utenti, dove sono elencate le aziende affiliate, e l’elenco dei prodotti con il loro tasso di sconto.
+<br>
+<br>
+Un unico sito centralina, che collega la domanda e l’offerta, nella maniera più rapida possibile. Accesso tramite il sito o tramite App dedicata sugli smartphone.
+<br>
+<br>
+U-Commerce per rivoluzionare il nuovo mercato globale!
+<br>
+<br>
+Per ulteriori informazioni sulla blockchain, vi consiglio di leggere questo articolo: http://www.blockchain4innovation.it/esperti/blockchain-perche-e-cosi-importante/
+<br>
+<br>
+Qui invece il wiki sul Bitcoin: https://it.m.wikipedia.org/wiki/Bitcoin</p>
+                        <button class="lightbox-back-btn">Torna ai Progetti</button>
+                    </div>
+                </div>
+                <div class="project-card animate-in">
+                    <div class="card-icon">🥤</div> 
+                    <h3>Bevi Stabia</h3>
+                     <p>Acqua in piazza</p>
+                    <div class="lightbox-full-content" style="display: none;">
+                        <p>Quante volte nei bar abbiamo acquistato acqua differente dalla nostra?
+<br>
+<br>
+Proprio qui, nella “città delle acque”.
+<br>
+<br>
+Castellammare o meglio Stabiae, nasce con un bacino idrico unico al mondo, vantando ben 25 sorgenti.
+<br>
+<br>
+Eppure ancor oggi pochi lo sanno, turisti, persone di passaggio, si fermano a guardare la nostra bella città, ma ignari, perdono la possibilità di assaggiare la nostra buonissima acqua.
+<br>
+<br>
+“Bevi Stabia”, un marchio ma ancor prima un progetto, si pone l’obbiettivo di portare l’acqua ovunque, nelle piazze e in ogni angolo della città, tramite dei distributori.
+<br>
+<br>
+Un piccolo prezzo, giusto per sostenere il progetto e per autofinanziare le nostre acque, la nostra città, che deve essere ricordata sempre come la “città delle acque”.
+<br>
+<br>
+Ma non finisce qui!!!
+Insieme all’acqua, anche i famosi biscotti!
+<br>
+<br>
+E perché non estenderci?
+Acqua nei bar, nei ristoranti e nelle “farmacie”.
+<br>
+Farmacie?
+<br>
+Si avete letto bene! Perché alcune delle nostre sorgenti hanno anche proprietà curative e terrapeutiche.
+<br>
+<br>
+L’acqua “ferrata” ad esempio, per coloro che hanno carenza di ferro, ma soprattutto l’acqua “solfurea” che oltre ad avere proprietà lassative, può essere utilizzata per liberare il naso dalle impurità del raffreddore, caldamente consigliata per il naso chiuso.
+<br>
+<br>
+E poi? Esportare la nostra acqua dove scarseggia, nelle isole vicine, e lanciarla di nuovo sul mercato, perché la nostra acqua vale!
+<br>
+<br>
+Molte città con una sola sorgente, riescono a fare del proprio marchio un nome riconosciuto in Italia ma anche all’estero.
+<br>
+<br>
+Con 25 sorgenti abbiamo assolutamente il dovere di provarci!
+<br>
+<br>
+La classe, è acqua, ma la nostra!
+Bevi, bevi Stabia, famm vere’ si me pozz fida’ e te!</p>
+                        <button class="lightbox-back-btn">Torna ai Progetti</button>
+                    </div>
+                </div>
+                <div class="project-card animate-in">
+                    <div class="card-icon">🍽️</div> 
+                    <h3>Virtual Bistrò</h3>
+                    <p>Ristorante virtuale immersivo.</p>
+                    <div class="lightbox-full-content" style="display: none;">
+                        <p>Quante volte avete sognato di mangiare in un ristorante rinomato sulla Torre Eiffel o vicino al Tamigi o magari ancora una cenetta a lume di candele a New York nella grande mela?
+<br>
+<br>
+E se vi dico che tutto ciò è possibile senza muoversi dalla propria città?
+<br>
+<br>
+Ma come? In che modo è possibile?
+Semplice! Basta munire un ristorante di una sala virtuale, e con l’ausilio di particolari lenti, potrete mangiare ovunque voi vogliate e magari essere serviti da Belen o dalla vostra diva preferita!
+<br>
+<br>
+Tutto virtuale?
+<br>
+Ovviamente no, tutto ciò che toccherete è vero, quindi mani apposto quando arriva Belen, in realtà potrebbe essere anche un cameriere maschio pronto a darvi due sberle! xD
+<br>
+<br>
+Il cibo sarà assolutamente uguale, cambieranno solo i tavoli e il posto, secondo il luogo da voi scelto.
+<br>
+<br>
+Ovviamente tale realtà virtuale può essere applicata ad altre attività, in palestra magari, dove invece di correre su un tapirulan, vi sembrerà di correre per una gara vera e propria con accanto magari “Fiona May”.
+<br>
+<br>
+Oppure in una ludoteca per divertire i bimbi con tanti giochi sensazionali, intrattenendoli senza annoiarli mai.
+<br>
+<br>
+È sempre meglio vedere le cose realmente, ciò è ovvio, ma avere la possibilità di poter visitare più luoghi rimanendo nello stesso posto, ha sicuramente i suoi ovvi vantaggi!</p>
+                        <button class="lightbox-back-btn">Torna ai Progetti</button>
+                    </div>
+                </div>
+                <div class="project-card animate-in">
+                    <div class="card-icon">💻</div> 
+                    <h3>Codeline</h3>
+                    <p>Telefoni senza scheda SIM.</p>
+                    <div class="lightbox-full-content" style="display: none;">
+                        <p>Il nostro cel si è scaricato e non abbiamo il modo per ricaricarlo.
+<br>
+<br>
+Per fortuna abbiamo un telefonino secondario, dunque per utilizzarlo dobbiamo per forza di cose rimuovere la scheda SIM dal telefono scarico e metterla nel cel secondario, operazione piuttosto semplice, ma scomoda da ripetere ogni volta.
+<br>
+<br>
+Ora immaginiamo dei telefoni che possiedono già una scheda integrata di base, e immaginiamo di voler passare la nostra linea da un telefono all’altro senza rimuovere la scheda. Difatti, un meccanismo che ho definito “attivazione con codeline”, ci consente di collegarci al nostro operatore che appunto ci fornisce un codice “codeline” generato al momento, per attivare la linea sul nostro telefono, in maniera semplice, pratica e veloce.
+<br>
+<br>
+Inoltre tale sistema, può essere utilizzato per attivare anche più linee sullo stesso telefono o simulando una dual sim, o con un meccanismo switch, passare da una linea all’altra.
+<br>
+<br>
+Il codice codeline viene generato con una cifratura molto complessa che assicura un codice univoco (applicabile ad un solo dispositivo per volta) altamente sicuro e inviolabile.
+<br>
+<br>
+Questo sistema innovativo andrebbe a migliorare di molto l’esperienza della telefonia mobile, e garantirebbe agli operatori una vendita molto più rapida, senza presentazioni di schede da attivare e da inizializzare sui cel.
+<br>
+<br>
+Il progresso deve assolutamente semplificare tutte le nostre operazioni quotidiane scomode, che ci portano via ogni giorno tempo prezioso.</p>
+                        <button class="lightbox-back-btn">Torna ai Progetti</button>
+                    </div>
+                </div>
+                <div class="project-card animate-in">
+                    <div class="card-icon">🛡️</div> 
+                    <h3>No Fake News</h3>
+                    <p>Sistema per contrastare la disinformazione.</p>
+                    <div class="lightbox-full-content" style="display: none;">
+                        <p>No Fake News è una piattaforma che utilizza l'intelligenza artificiale per analizzare notizie e contenuti web, identificando possibili fake news e fornendo fonti verificate.
+<br>
+<br>
+Inoltre si ha accesso a un sistema di rating sulle news, ovvero,lo stesso utente potrà votare e dichiarare la notizia una fake news, e tale notizia apparirà con l’avviso “Attenzione! Probabilmente questa notizia è falsa”.
+<br>
+<br>
+Più utenti la flaggano come fake news, più questa avrà un rating basso e verrà automaticamente eliminata dai social.
+<br>
+<br>
+Un sistema efficace per chi vuole sui propri social solo notizie vere.</p>
+                        <h4>Come funziona:</h4>
+                        <ol>
+                            <li>Incolla il link o il testo della notizia</li>
+                            <li>Il sistema analizza il contenuto</li>
+                            <li>Verifica fonti e riferimenti</li>
+                            <li>Controlla la cronologia dell'autore</li>
+                            <li>Confronta con altre fonti attendibili</li>
+                            <li>Genera un report di affidabilità</li>
+                        </ol>
+                        <h4>Tecnologie utilizzate:</h4>
+                        <ul>
+                            <li>Natural Language Processing</li>
+                            <li>Machine Learning</li>
+                            <li>Analisi delle reti sociali</li>
+                            <li>Blockchain per la tracciabilità</li>
+                            <li>Database di fact-checking collaborativo</li>
+                        </ul>
+                        <p>Disponibile come estensione browser, app mobile e API per editori.</p>
+                        <button class="lightbox-back-btn">Torna ai Progetti</button>
+                    </div>
+                </div>
+                <div class="project-card animate-in">
+                    <div class="card-icon">🔐</div> 
+                    <h3>MediaCrypt</h3>
+                    <p>Soluzione per la crittografia multimediale.</p>
+                    <div class="lightbox-full-content" style="display: none;">
+                        <p>Quante volte ci hanno detto che internet è un bene comune e i costi dovrebbero essere accessibili per tutti? Beh molte volte, e sebbene molte compagnie telefoniche hanno reso le loro offerte più economiche e vantaggiose, con l’avvento della fibra hanno dovuto mantenere una certa soglia per coprire i costi di gestione di questa nuova rete.
+<br>
+<br>
+Se poi ci rivolgiamo agli operatori mobile, con i pochi giga a disposizione non possiamo di certo vedere Netflix o altri siti di streaming, in quanto basta vedere qualche film e/o serie per consumare velocemente tutti i giga a disposizione.
+<br>
+<br>
+Come far fronte a questo problema? In che modo possiamo vedere film e le nostre serie preferite senza preoccuparci della connessione?
+<br>
+<br>
+Semplice! Con il sistema “MediaCrypt” possiamo fare questo ed altro!
+<br>
+<br>
+MediaCrypt non è il solito box multimediale, i contenuti multimediali che vogliamo vedere e sentire, vengono criptati grazie ad una particolare cifratura, e per visionarli occorre un codice di accesso, una password.
+<br>
+<br>
+L’utente si reca al negozio e compila una scheda con le serie, i film, le canzoni, e i calendari che vuole vedere e sentire, e tali contenuti verranno caricati su una penna progettata esclusivamente per MediaCrypt, ultraveloce e di svariati terabyte per contenere moltissimo materiale.
+<br>
+<br>
+Una volta caricati viene fornita una password per sbloccare tutto il materiale richiesto.
+<br>
+<br>
+Una volta a casa, s’inserisce la penna nel MediaCrypt Box, e s’immette la password con l’apposito telecomando in dotazione.
+<br>
+<br>
+Voilà, magicamente sul nostro televisore compariranno tutti i nostri contenuti preferiti.
+<br>
+<br>
+MediaCrypt può fare solo questo?
+<br>
+<br>
+No!!! Il sistema a bordo di MediaCrypt ci consente di criptare anche i nostri contenuti personali e poterli portare in giro o passarli a terzi cedendo la password che abbiamo creato.
+<br>
+<br>
+Tramite la penna possiamo semplicemente copiare i nostri dati dal PC, una volta inserita nuovamente nel MediaCrypt li andiamo a cifrare con una password a nostra scelta.
+<br>
+<br>
+Il sistema è privo di abbonamenti, ma per convenienza, grazie a diversi piani (basic, medium, premium) si otterranno notevoli sconti e diversi vantaggi esclusivi per gli abbonati.
+<br>
+<br>
+La gestione dei contenuti acquistati potrà avvenire solo sul suddetto box, e una volta che abbiamo visto le serie e i film che ci interessavano, possiamo tranquillamente cancellarli o passarli su un’altra “MediaCrypt Pen”, acquistabile da parte, dal costo proporzionato ai terabyte che desideriamo ottenere. Più le penne sono capienti, più materiale possiamo caricare sopra.
+<br>
+<br>
+Infine se volessimo avvalerci del WiFi di casa per scaricare i contenuti direttamente da internet, basta collegare il box alla rete di casa, e dalla schermata dei contenuti, acquistare ciò che desideriamo comodamente con la carta di credito.
+<br>
+<br>
+Altre particolari offerte si potranno ricevere acquistando pacchetti e card, che possiamo anche regalare a tutti i nostri amici e parenti che possiedono MediaCrypt.
+<br>
+<br>
+Il mondo è un immenso enigma, sta a noi decifrarlo giorno per giorno fornendo la chiave giusta!</p>
+                        <button class="lightbox-back-btn">Torna ai Progetti</button>
+                    </div>
+                </div>
+                <div class="project-card animate-in">
+                    <div class="card-icon">🔥</div> 
+                    <h3>Smart Flame</h3>
+                    <p>Piastra elettrica con modulatore di calore.</p>
+                    <div class="lightbox-full-content" style="display: none;">
+                        <p>In questo mondo in continuo progresso l'automazione e la domotica sembrano quasi un obbligo per chi vuole condurre una vita sempre più "smart", ovvero ottenere in poco tempo, il massimo risultato con il minimo indispensabile.
+<br>
+<br>
+Ovviamente questa idea, se applicata nel campo del caffè, non è pensata per evitare la manualità, che per chi ha passione è tutto, è bellissimo metterci manualità in un qualcosa che ci da un risultato che ci soddisfa e ci gratifica anche quando facciamo un caffè al vicino o a una persona che ce lo richiede "espressamente".
+<br>
+<br>
+Dunque tale idea, senza presunzioni, vuole trovare più applicazioni, e agire d'alternativa per chi va di fretta al mattino, e ha bisogno di un pochettino di velocità in più, e di conseguenza vuole appoggiarsi ad un pochettino di automazione in più.
+<br>
+<br>
+Magari un'automazione che può essere utile anche in termine di sicurezza, ovvero dopo un determinato periodo di tempo, la fiamma viene spenta in maniera automatica, evitando problemi a chi purtroppo si è dovuto allontanare un attimo e si è dimenticato del caffè o qualsiasi altra cosa appoggiata sulla piastra.
+<br>
+<br>
+Traduco semplicemente l'idea con le funzioni che dovrebbe avere indicando la pulsantiera che può essere anche touch, con il relativo monitor che mostra passo passo tutte le sequenze impostate:
+<br>
+<br>
+-Tasto Accensione/Spegnimento.
+<br>
+-Pulsantiera fiamma:
+<br>
+<br>
+1.Fiamma accesa
+<br>
+2.Fiamma spenta
+<br>
+<br>
+1.Fiamma bassa
+<br>
+2.Fiamma media
+<br>
+3.Fiamma alta
+<br>
+<br>
+-Secondi
+<br>
+-Timer spegnimento piastra
+<br>
+-Cancella, Aggiungi, Salva Sequenza, Elimina Sequenza, Sequenze Memorizzate
+<br>
+-Monitor
+<br>
+<br>
+-Esempio:
+<br>
+<br>
+-Accensione
+<br>
+<br>
+-Fiamma: alta
+<br>
+Secondi Fiamma accesa (12 secondi)
+<br>
+Secondi Fiamma spenta (8 secondi)
+<br>
+-Aggiungi:
+<br>
+-Fiamma: media
+<br>
+Secondi fiamma accesa (6 secondi)
+<br>
+Secondi fiamma spenta (nessun valore indicato, quindi spegnimento automatico).
+<br>
+<br>
+-Spegnimento.
+<br>
+<br>
+Ovviamente la sequenza può essere registrata e numerata a nostro piacimento, la possiamo attivare sia premendo un pulsante, sia richiamandola tramite "Alexa/Google Assistant": "Alexa/Ehi Google, sequenza uno".
+<br>
+<br>
+In questo modo qualsiasi pentola o caffettiera diventa smart, senza trasformarla completamente in un sistema elettrico, sarà la piastra con il modulatore di calore che in maniera separata svolgerà questo lavoro, per noi, rendendo tutta la gestione della fiamma più pratica e veloce</p>
+                        <h4>Innovazioni tecnologiche:</h4>
+                        <ul>
+                            <li>Modulazione precisa della temperatura (1°C)</li>
+                            <li>Riscaldamento ultra-rapido</li>
+                            <li>Consumo energetico ottimizzato</li>
+                        </ul>
+                        <h4>Funzionalità smart:</h4>
+                        <ul>
+                            <li>Timer di cottura programmabile</li>
+                            <li>Impostazione di sicurezza per evitare il surriscaldamento</li>
+                        </ul>
+                        <button class="lightbox-back-btn">Torna ai Progetti</button>
+                    </div>
+                </div>
+                <div class="project-card animate-in">
+                    <div class="card-icon">💾</div> 
+                    <h3>For-smart</h3>
+                    <p>Dispositivo per formattare memorie in viaggio.</p>
+                    <div class="lightbox-full-content" style="display: none;">
+                        <p>For-smart è un dispositivo portatile che permette di formattare e cancellare in sicurezza unità di memoria ovunque ti trovi.</p>
+                        <h4>Supporta tutti i formati:</h4>
+                        <ul>
+                            <li>USB Flash Drive</li>
+                            <li>Schede SD/microSD</li>
+                            <li>SSD esterni</li>
+                            <li>HDD portatili</li>
+                        </ul>
+                        <h4>Modalità di cancellazione:</h4>
+                        <ul>
+                            <li>Formattazione rapida</li>
+                            <li>Cancellazione sicura (algoritmi militari)</li>
+                            <li>Distruzione dati certificata</li>
+                            <li>Partizionamento avanzato</li>
+                            <li>Diagnostica dello stato del supporto</li>
+                        </ul>
+                        <h4>Vantaggi:</h4>
+                        <ul>
+                            <li>Dimensioni tascabili</li>
+                            <li>Display OLED per monitoraggio</li>
+                            <li>Compatibile con Windows, Mac, Linux</li>
+                            <li>Nessun software aggiuntivo necessario</li>
+                        </ul>
+                        <p>Essenziale per fotografi, videomaker e professionisti IT.</p>
+                        <button class="lightbox-back-btn">Torna ai Progetti</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contatti" class="section">
+        <div class="container">
+            <h2 class="section-title animate-in">CONNETTITI AL FUTURO</h2>
+            <div class="contact-form animate-in">
+                <form action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="8935fffe-9077-4c80-9c93-c43cba64a6a2">
+                    <input type="hidden" name="redirect" value="https://mrrearm.github.io/mini/grazie.html">
+                    <input type="checkbox" name="botcheck" style="display:none">
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name" name="name" required placeholder="Il tuo nome">
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required placeholder="La tua email">
+
+                    <label for="message">Messaggio:</label>
+                    <textarea id="message" name="message" required placeholder="Il tuo messaggio..."></textarea>
+
+                    <button type="submit">INVIA MESSAGGIO</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>MR REARM</h3>
+                <p>Segui i nostri social:</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/mrrearm/" class="social-link" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://x.com/RayRearm?t=JaxbGikniK_tdIc5OJDLNA&s=09" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/@mrrearm" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/mrrearm" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://github.com/mrrearm" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 MR REARM. All rights reserved. | Shake Your Mind - Future Tech Solutions</p>
+        </div>
+    </footer>
+
+    <div id="projectLightbox" class="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close">&times;</button>
+            <div class="lightbox-body"></div>
+        </div>
+    </div>
+
+    <button id="scrollToTopBtn" title="Torna su">↑</button>
+
+    <script>
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('fade-out');
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
+
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileMenu.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            if(navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            const scrollPosition = window.pageYOffset + 200;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            particle.style.opacity = Math.random();
+            particle.style.width = Math.random() * 3 + 2 + 'px';
+            particle.style.height = particle.style.width;
+            document.getElementById('particles').appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 6000);
+        }
+
+        function adjustParticles() {
+            const particlesContainer = document.getElementById('particles');
+            particlesContainer.innerHTML = '';
+            
+            const particleCount = window.innerWidth < 768 ? 20 : 50;
+            
+            for(let i = 0; i < particleCount; i++) {
+                setTimeout(() => {
+                    createParticle();
+                }, i * 300);
+            }
+        }
+
+        adjustParticles();
+        
+        window.addEventListener('resize', adjustParticles);
+
+        setInterval(createParticle, 300);
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(5, 5, 5, 0.98)';
+                navbar.style.backdropFilter = 'blur(30px)';
+            } else {
+                navbar.style.background = 'rgba(5, 5, 5, 0.95)';
+                navbar.style.backdropFilter = 'blur(20px)';
+            }
+        });
+
+        function createGlitchEffect() {
+            const elements = document.querySelectorAll('.section-title, .logo');
+            elements.forEach(el => {
+                if (Math.random() < 0.1) {
+                    el.style.textShadow = `
+                        ${Math.random() * 10}px 0 #ff0000,
+                        ${Math.random() * -10}px 0 #00ffff,
+                        0 0 30px var(--primary-cyan)
+                    `;
+                    setTimeout(() => {
+                        el.style.textShadow = '0 0 30px var(--primary-cyan)';
+                    }, 150);
+                }
+            });
+        }
+
+        setInterval(createGlitchEffect, 3000);
+
+        document.querySelectorAll('.service-card, .project-card').forEach(card => {
+            card.addEventListener('mousemove', function(e) {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const deltaX = (x - centerX) / centerX;
+                const deltaY = (y - centerY) / centerY;
+                
+                card.style.transform = `
+                    perspective(1000px) 
+                    rotateY(${deltaX * 10}deg) 
+                    rotateX(${deltaY * -10}deg) 
+                    translateY(-10px)
+                `;
+                
+                card.style.boxShadow = `
+                    ${deltaX * 20}px ${deltaY * 20}px 40px rgba(0, 255, 255, 0.3),
+                    0 0 20px rgba(0, 255, 255, 0.2)
+                `;
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                card.style.transform = '';
+                card.style.boxShadow = '';
+            });
+        });
+
+        const lightbox = document.getElementById('projectLightbox');
+        const lightboxContent = lightbox.querySelector('.lightbox-content');
+        const lightboxClose = lightbox.querySelector('.lightbox-close');
+        const lightboxBody = lightbox.querySelector('.lightbox-body');
+
+        function openLightbox(contentHtml) {
+            lightboxBody.innerHTML = contentHtml;
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            lightboxContent.scrollTop = 0;
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = '';
+            lightboxBody.innerHTML = '';
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.querySelectorAll('.project-card, .service-card, .project-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.tagName === 'A') return;
+                
+                let contentHtml = '';
+                const icon = card.querySelector('.card-icon');
+                if (icon) contentHtml += `<div class="card-icon">${icon.textContent}</div>`;
+                
+                const h3 = card.querySelector('h3');
+                if (h3) contentHtml += `<h3>${h3.textContent}</h3>`;
+                
+                const p = card.querySelector('p');
+                if (p) contentHtml += `<p>${p.textContent}</p>`;
+
+                const fullContentDiv = card.querySelector('.lightbox-full-content');
+                if (fullContentDiv) {
+                    contentHtml += fullContentDiv.innerHTML;
+                }
+
+                openLightbox(contentHtml);
+            });
+        });
+
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.style.display = "block";
+            } else {
+                scrollToTopBtn.style.display = "none";
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Handle back button in lightbox
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('lightbox-back-btn')) {
+                closeLightbox();
+            }
+        });
+
+        console.log('🚀 MR REARM - Future Tech Solutions Activated!');
+        console.log('💡 Shake Your Mind - Ready for Innovation!');
+    </script>
+</body>
+</html>
